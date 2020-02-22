@@ -1,0 +1,5 @@
+export const actionIds = {
+    UPDATE_MEMBERS: 'UPDATE_MEMBERS',
+    FETCH_MEMBERS_ERROR: 'FETCH_MEMBERS_ERROR',
+    CLEAR_TABLE: 'CLEAR_TABLE',
+  };
