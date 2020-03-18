@@ -1,7 +1,5 @@
 import * as React from "react";
 import { MemberEntity } from "../../model/member";
-//import { memberAPI } from "../../api/memberAPI";
-import { fetchMembers } from "../../actions/fetchMembers";
 import { MemberRow } from "./memberRow";
 import { MemberHead } from "./memberHead";
 import Table from '@material-ui/core/Table';
@@ -19,12 +17,15 @@ import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import TextField from '@material-ui/core/TextField';
 
+
 import { InnerSpinner } from "../spinner";
 
 export interface PropsTable {
   members: MemberEntity[];
+  page: number;
   fetchMembers: (organization: string) => void;
   clearMembers: () => void;
+  updateTable: (page: number) => void;
 }
 
 const useStyles = makeStyles({
@@ -39,19 +40,19 @@ const useStyles = makeStyles({
 
 export const MembersTableComponent: React.FunctionComponent<PropsTable> = (props: PropsTable) => {
   const [organization, setOrganizarion] = React.useState<string>("lemoncode");
-  const [page, setPage] = React.useState(0);
+  //const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
-    setPage(newPage);
+    props.updateTable(newPage);
   };
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    props.updateTable(0);
   };
 
 
@@ -93,7 +94,7 @@ export const MembersTableComponent: React.FunctionComponent<PropsTable> = (props
           <TableBody>
           <InnerSpinner/>
           {(rowsPerPage > 0
-            ? props.members.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            ? props.members.slice(props.page * rowsPerPage, props.page * rowsPerPage + rowsPerPage)
             : props.members
           ).map((member: MemberEntity) => (
               <MemberRow key={member.id} member={member} />
@@ -106,7 +107,7 @@ export const MembersTableComponent: React.FunctionComponent<PropsTable> = (props
               colSpan={3}
               count={props.members.length}
               rowsPerPage={rowsPerPage}
-              page={page}
+              page={props.page}
               SelectProps={{
                 inputProps: { 'aria-label': 'rows per page' },
                 native: true,

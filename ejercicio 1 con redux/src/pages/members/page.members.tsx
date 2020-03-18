@@ -17,15 +17,21 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  serverError: string | null;
-  fetchMembers: (organization: string) => void;
-  clearMembers: ()=> void;
   members: MemberEntity[];
+  page: number;
+  serverError: string | null;
+  clearMembers: () => void;
+  fetchMembers: (organization: string) => void;
+  updateTable: (page: number) => void;
 }
 
-export const MemberListPage: React.FunctionComponent<Props> = ({ members, serverError, fetchMembers, clearMembers }) => (
+export const MemberListPage: React.FunctionComponent<Props> = ({ members, serverError, fetchMembers, clearMembers, page, updateTable }) => (
   <>
     {serverError ? <Alert severity="error">Algo no ha ido bien! ERROR: {serverError}</Alert> : null}
-    <MembersTableComponent members={members} fetchMembers={fetchMembers} clearMembers={clearMembers} />
+    <MembersTableComponent members={members}
+                           fetchMembers={fetchMembers}
+                           clearMembers={clearMembers}
+                           page={page}
+                           updateTable={updateTable}/>
   </>
 );
