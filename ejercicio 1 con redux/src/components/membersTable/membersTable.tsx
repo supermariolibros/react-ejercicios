@@ -16,8 +16,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import TextField from '@material-ui/core/TextField';
-
-
 import { InnerSpinner } from "../spinner";
 
 export interface PropsTable {
@@ -40,10 +38,8 @@ const useStyles = makeStyles({
 
 export const MembersTableComponent: React.FunctionComponent<PropsTable> = (props: PropsTable) => {
   const [organization, setOrganizarion] = React.useState<string>("lemoncode");
-  //const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     props.updateTable(newPage);
   };
@@ -54,7 +50,6 @@ export const MembersTableComponent: React.FunctionComponent<PropsTable> = (props
     setRowsPerPage(parseInt(event.target.value, 10));
     props.updateTable(0);
   };
-
 
   const classes = useStyles();
 
@@ -86,13 +81,13 @@ export const MembersTableComponent: React.FunctionComponent<PropsTable> = (props
         startIcon={<DeleteIcon />}
        onClick={clearTheTable}>Clear the table</Button>
        
-      <TableContainer component={Paper}>  
+      <TableContainer component={Paper}>
+      <InnerSpinner/>
         <Table className={classes.table}>
           <TableHead>
             <MemberHead />
           </TableHead>
           <TableBody>
-          <InnerSpinner/>
           {(rowsPerPage > 0
             ? props.members.slice(props.page * rowsPerPage, props.page * rowsPerPage + rowsPerPage)
             : props.members

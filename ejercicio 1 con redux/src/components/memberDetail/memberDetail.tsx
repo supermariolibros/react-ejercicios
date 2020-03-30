@@ -14,8 +14,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { memberAPI } from "../../api/memberAPI";
 import { MemberEntity } from '../../model/member';
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,21 +42,18 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface MemberDetailsProps {
-    username: string;
+interface Props {
+  username: string;
+  member: MemberEntity;
+  fetchMemberDetails: (name: string) => void;
 }
 
-export const memberDetail= (props: any) => {
+export const MemberDetail= (props: Props) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [member, setMember] = React.useState<MemberEntity>({
-    id: -1,
-    login: '',
-    avatar_url: '',
-  });
+
   React.useEffect(() => {
-    console.log(props.match.params.username);
-    memberAPI.getAMemberDetail(props.match.params.username).then(memberDetail => setMember(memberDetail));
+    props.fetchMemberDetails(props.username);
 }, []);
 
   const handleExpandClick = () => {
@@ -76,17 +73,17 @@ export const memberDetail= (props: any) => {
           </IconButton>
         }
         title="Organization member number:"
-        subheader={member.id}
+        subheader={props.member.id}
       />
       <CardMedia
         className={classes.media}
-        image={member.avatar_url}
+        image={props.member.avatar_url}
         title="Avatar Member"
         src="img"
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-        With Login :  {member.login}
+        With Login :  {props.member.login}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

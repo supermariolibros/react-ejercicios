@@ -35,7 +35,6 @@ interface Props {
 
 const PageContainer: React.FunctionComponent<Props> = React.memo((props) => {
   const { members, serverError, fetchMembers, clearMembers, page, updateTable } = props;
- //   React.useEffect(fetchMembers,[]);
   return <MemberListPage members={members} 
                          fetchMembers={fetchMembers}
                          serverError={serverError}

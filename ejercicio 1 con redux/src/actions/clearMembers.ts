@@ -5,7 +5,7 @@ export const clearMember = () => (dispatch) => (
   );
 
 
-  export const clearMemberAction = () => ({
+export const clearMemberAction = () => ({
     type: actionIds.CLEAR_TABLE,
     payload: [],
-  });
+});

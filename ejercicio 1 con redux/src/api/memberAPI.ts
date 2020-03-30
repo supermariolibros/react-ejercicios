@@ -45,8 +45,6 @@ class MemberAPI {
           memberDetail.id = data.id;
           memberDetail.login = data.login;
           memberDetail.avatar_url = data.avatar_url;
-        //  memberDetail.email = data.company;
-        //  memberDetail.company = data.company;
   
     return Promise.resolve(memberDetail);
   };
