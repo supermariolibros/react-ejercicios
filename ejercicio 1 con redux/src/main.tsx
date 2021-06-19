@@ -11,6 +11,7 @@ const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] || compo
 const store = createStore(membersReducer, /* preloadedState, */ composeEnhancers(
    applyMiddleware(reduxThunk)
  ));
+//comment
 
 ReactDOM.render(
   <Provider store={store}>
